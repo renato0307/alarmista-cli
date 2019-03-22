@@ -51,9 +51,9 @@ func main() {
 	}
 	
 	switch os.Args[1] {
-    case "readc":
+	case "readc":
         readCharacteristicCmd.Parse(os.Args[2:])
-    case "writec":
+	case "writec":
         writeCharacteristicCmd.Parse(os.Args[2:])
 	case "gpio":
 		gpioWriteCmd.Parse(os.Args[2:])
