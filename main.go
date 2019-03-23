@@ -1,12 +1,12 @@
 package main
 
 import (
-        "fmt"
-		"flag"
-		"os"
-		"gobot.io/x/gobot/platforms/ble"
-        "gobot.io/x/gobot/drivers/gpio"
-        "gobot.io/x/gobot/platforms/raspi"		
+	"fmt"
+	"flag"
+	"os"
+	"gobot.io/x/gobot/platforms/ble"
+	"gobot.io/x/gobot/drivers/gpio"
+	"gobot.io/x/gobot/platforms/raspi"		
 )
 
 // readCharacteristic reads the value of a characteristic
