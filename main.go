@@ -31,16 +31,18 @@ func writeCharacteristic(bleAdaptor *ble.ClientAdaptor, uuid string, data []byte
 
 func main() {
 
-	// ReadCharacteristic command 
+	// read characteristic BLE command 
 	readCharacteristicCmd := flag.NewFlagSet("readc", flag.ExitOnError)
 	readCAddress := readCharacteristicCmd.String("address", "", "the address of the BLE device, e.g. 30:AE:A4:02:BC:3A (required)")
 	readCUuid := readCharacteristicCmd.String("uuid", "", "the UUID of the characteristic, e.g. cc0bd427-c9c3-43b0-a7c6-2df108b2b7c4 (required)")
 
+	// write characteristic BLE command 
 	writeCharacteristicCmd := flag.NewFlagSet("writec", flag.ExitOnError)
 	writeCAddress := writeCharacteristicCmd.String("address", "", "the address of the BLE device, e.g. 30:AE:A4:02:BC:3A (required)")
 	writeCUuid := writeCharacteristicCmd.String("uuid", "", "the UUID of the characteristic, e.g. cc0bd427-c9c3-43b0-a7c6-2df108b2b7c4 (required)")	
 	writeCValue := writeCharacteristicCmd.String("value", "", "the value to write")	
 
+	// write gpio command 
 	gpioWriteCmd := flag.NewFlagSet("gpio", flag.ExitOnError)
 	gpioWritePin := gpioWriteCmd.String("pin", "", "the pin number to write, e.g. 12 (required)")	
 	gpioWriteValue := gpioWriteCmd.Int("value", 1, "1 or 0")	
@@ -50,18 +52,20 @@ func main() {
         os.Exit(1)
 	}
 	
+	// check which subcommand was executed
 	switch os.Args[1] {
-	case "readc":
-        readCharacteristicCmd.Parse(os.Args[2:])
-	case "writec":
-        writeCharacteristicCmd.Parse(os.Args[2:])
-	case "gpio":
-		gpioWriteCmd.Parse(os.Args[2:])
-	default:
-        flag.PrintDefaults()
-        os.Exit(1)
+		case "readc":
+			readCharacteristicCmd.Parse(os.Args[2:])
+		case "writec":
+			writeCharacteristicCmd.Parse(os.Args[2:])
+		case "gpio":
+			gpioWriteCmd.Parse(os.Args[2:])
+		default:
+			flag.PrintDefaults()
+			os.Exit(1)
 	}
 	
+	// handles read characteristic
 	if readCharacteristicCmd.Parsed() {
 		if *readCAddress == "" || *readCUuid == "" {
 			fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
@@ -88,6 +92,7 @@ func main() {
 		}
 	}
 
+	// handles write characteristic
 	if writeCharacteristicCmd.Parsed() {
 		if *writeCAddress == "" || *writeCUuid == "" {
 			fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
@@ -114,6 +119,7 @@ func main() {
 		}
 	}
 
+	// handle gpio write
 	if gpioWriteCmd.Parsed() {
 		if *gpioWritePin == "" {
 			fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
