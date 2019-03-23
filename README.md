@@ -9,7 +9,7 @@ sudo ./alarmista-cli writec -address 30:AE:A4:02:BC:3A -uuid 9501faf3-b697-40de-
 ```
 ##### read a characteristic
 ```bash
-sudo ./alarmista-cli writec -address 30:AE:A4:02:BC:3A -uuid 9501faf3-b697-40de-ad74-0a10f5e2de2c -value 12345
+sudo ./alarmista-cli writec -address 30:AE:A4:02:BC:3A -uuid 9501faf3-b697-40de-ad74-0a10f5e2de2c
 ```
 
 ##### send gpio writes to simulate a button on/off
